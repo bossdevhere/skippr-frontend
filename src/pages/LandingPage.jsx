@@ -55,7 +55,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#050505] selection:bg-emerald-500/30 overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground selection:bg-emerald-500/30 overflow-hidden">
       <Navbar />
 
       {/* Background Decor */}
@@ -89,7 +89,7 @@ const LandingPage = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center space-x-2 bg-white border border-emerald-500/10 px-6 py-2 rounded-full text-sm font-medium shadow-sm"
+            className="inline-flex items-center space-x-2 bg-card border border-border px-6 py-2 rounded-full text-sm font-medium shadow-sm"
           >
             <Star className="h-4 w-4 text-emerald-500 fill-emerald-500" />
             <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent font-bold">
@@ -105,14 +105,14 @@ const LandingPage = () => {
               className="text-7xl md:text-[120px] font-black tracking-tighter leading-[0.85] uppercase"
             >
               Premium <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-black to-black/40">Experience.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/40">Experience.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl text-black/40 max-w-2xl mx-auto font-medium leading-relaxed"
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium leading-relaxed"
             >
               The digital concierge for your home. We bring elite service standards to your doorstep with a single tap.
             </motion.p>
@@ -136,7 +136,7 @@ const LandingPage = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-16 px-12 text-lg font-black rounded-2xl border-black/5 bg-white hover:bg-gray-50 shadow-sm" 
+                className="h-16 px-12 text-lg font-black rounded-2xl border-border bg-background hover:bg-accent shadow-sm" 
                 onClick={() => navigate('/signup')}
               >
                 Join Skippr
@@ -158,7 +158,7 @@ const LandingPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className={cn(
-                  "p-10 rounded-[40px] border border-black/[0.03] bg-white shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_30px_60px_rgb(0,0,0,0.05)] transition-all duration-500 group relative overflow-hidden",
+                  "p-10 rounded-[40px] border border-border bg-card shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden",
                   feature.span
                 )}
               >
@@ -169,13 +169,13 @@ const LandingPage = () => {
                   <feature.icon className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold mb-4 tracking-tight">{feature.title}</h3>
-                <p className="text-black/40 leading-relaxed text-lg font-medium">
+                <p className="text-muted-foreground leading-relaxed text-lg font-medium">
                   {feature.description}
                 </p>
                 
                 {/* Visual Accent */}
                 <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronRight className="h-8 w-8 text-black/10" />
+                  <ChevronRight className="h-8 w-8 text-foreground/10" />
                 </div>
               </motion.div>
             ))}
@@ -189,21 +189,21 @@ const LandingPage = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto rounded-[60px] bg-white border border-black/[0.03] shadow-[0_40px_100px_rgba(0,0,0,0.04)] p-16 md:p-24 text-center relative overflow-hidden"
+          className="max-w-6xl mx-auto rounded-[60px] bg-card border border-border shadow-2xl p-16 md:p-24 text-center relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/[0.03] via-transparent to-transparent opacity-50" />
           
           <div className="relative z-10 space-y-12">
             <div className="space-y-4">
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic text-black">Stay Clean. <br />Stay Premium.</h2>
-              <p className="text-black/40 text-xl max-w-xl mx-auto font-medium">Elevate your living standards with the most trusted professionals in the city.</p>
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic text-foreground">Stay Clean. <br />Stay Premium.</h2>
+              <p className="text-muted-foreground text-xl max-w-xl mx-auto font-medium">Elevate your living standards with the most trusted professionals in the city.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-4">
               <Button 
                 variant="secondary" 
                 size="lg" 
-                className="h-16 px-16 rounded-2xl font-black bg-black text-white hover:scale-105 transition-transform shadow-2xl" 
+                className="h-16 px-16 rounded-2xl font-black bg-primary text-primary-foreground hover:scale-105 transition-transform shadow-2xl" 
                 onClick={() => navigate('/signup')}
               >
                 Book Now
@@ -218,11 +218,11 @@ const LandingPage = () => {
       </section>
 
       {/* Minimalistic Footer */}
-      <footer className="py-20 px-6 border-t border-black/[0.03] bg-white">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-sm text-black/20">
+      <footer className="py-20 px-6 border-t border-border bg-card">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-sm text-muted-foreground">
           <div className="flex items-center space-x-4">
             <div className="h-10 w-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-lg">S</div>
-            <span className="font-black text-black text-2xl tracking-tighter uppercase">Skippr</span>
+            <span className="font-black text-foreground text-2xl tracking-tighter uppercase">Skippr</span>
           </div>
           
           <nav className="flex space-x-12 font-bold uppercase tracking-widest text-[10px]">
@@ -231,7 +231,7 @@ const LandingPage = () => {
             <button className="hover:text-emerald-600 transition-colors">Support</button>
           </nav>
 
-          <div className="font-medium tracking-tight text-black/40">
+          <div className="font-medium tracking-tight text-muted-foreground/40">
             © 2026 Skippr. Crafted for excellence.
           </div>
         </div>
