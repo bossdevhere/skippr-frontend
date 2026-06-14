@@ -70,7 +70,11 @@ const BookingPage = () => {
   const unit_number = watch('unit_number');
   const address = watch('address');
 
-  const isStep1Complete = customer_name?.length >= 2 && mobile?.length >= 10 && unit_number?.length >= 1 && address?.length >= 5;
+  const isStep1Complete = 
+    customer_name && customer_name.length >= 2 && 
+    mobile && mobile.length >= 10 && 
+    unit_number && unit_number.length >= 1 && 
+    address && address.length >= 5;
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -99,7 +103,13 @@ const BookingPage = () => {
     }
   };
 
-  const nextStep = () => setStep(step + 1);
+  const nextStep = () => {
+    if (step === 1 && !isStep1Complete) {
+      toast.error('Please fill all details correctly');
+      return;
+    }
+    setStep(step + 1);
+  };
   const prevStep = () => setStep(step - 1);
 
   const timeSlots = [
@@ -116,103 +126,118 @@ const BookingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-emerald-500/30 overflow-hidden relative">
+    <div className="min-h-screen bg-background text-foreground selection:bg-emerald-500/30 overflow-x-hidden">
       <Navbar />
       
       {/* Background Decor */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/[0.03] blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/[0.03] blur-[120px] rounded-full" />
+      <div className="fixed inset-0 pointer-events-none opacity-50">
+        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/[0.05] blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/[0.05] blur-[120px] rounded-full" />
       </div>
 
-      <main className="max-w-6xl mx-auto px-6 pt-32 pb-24 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-16">
+      <main className="max-w-xl mx-auto px-6 pt-32 pb-24 relative z-10">
+        <div className="space-y-12">
           
-          {/* Left Sidebar - Title & Progress */}
-          <div className="lg:col-span-4 space-y-12">
-            <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center space-x-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"
-              >
-                <Sparkles className="h-3 w-3" />
-                <span>Concierge Booking</span>
-              </motion.div>
-              <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+          {/* Header Section */}
+          <div className="text-center space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center space-x-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"
+            >
+              <Sparkles className="h-3 w-3" />
+              <span>Concierge Booking</span>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="space-y-2"
+            >
+              <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase leading-[0.85]">
                 Request <br />
-                <span className="text-muted-foreground/40">Excellence.</span>
+                <span className="text-muted-foreground/30">Excellence.</span>
               </h1>
-              <p className="text-muted-foreground font-medium max-w-sm">
+              <p className="text-muted-foreground font-medium max-w-sm mx-auto pt-2">
                 Complete the steps to secure your premium home maintenance service.
               </p>
-            </div>
-
-            <nav className="flex flex-col space-y-8">
-              {steps.map((s) => (
-                <div 
-                  key={s.id} 
-                  className={cn(
-                    "flex items-center space-x-4 transition-all duration-500",
-                    step === s.id ? "translate-x-2" : "opacity-30"
-                  )}
-                >
-                  <div className={cn(
-                    "h-1 w-8 rounded-full transition-all duration-500",
-                    step === s.id ? "bg-emerald-500 w-12" : "bg-muted-foreground"
-                  )} />
-                  <span className="text-xs font-black uppercase tracking-widest">{s.title}</span>
-                </div>
-              ))}
-            </nav>
+            </motion.div>
           </div>
 
-          {/* Right Content - Form */}
-          <div className="lg:col-span-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
+          {/* Progress Bar */}
+          <div className="relative pt-8">
+            <div className="flex justify-between items-center relative z-10">
+              {steps.map((s) => (
+                <div key={s.id} className="flex flex-col items-center group cursor-pointer" onClick={() => s.id < step && setStep(s.id)}>
+                  <div className={cn(
+                    "h-3 w-3 rounded-full border-2 transition-all duration-500 mb-3",
+                    step >= s.id ? "bg-emerald-500 border-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-background border-muted"
+                  )} />
+                  <span className={cn(
+                    "text-[10px] font-black uppercase tracking-widest transition-colors",
+                    step === s.id ? "text-foreground" : "text-muted-foreground"
+                  )}>{s.title}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute top-[41px] left-0 h-[2px] w-full bg-muted -z-0" />
+            <motion.div 
+              className="absolute top-[41px] left-0 h-[2px] bg-emerald-500 -z-0"
+              initial={{ width: "0%" }}
+              animate={{ width: `${((step - 1) / (steps.length - 1)) * 100}%` }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
+
+          {/* Form Content */}
+          <div className="pt-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               <AnimatePresence mode="wait">
                 {step === 1 && (
                   <motion.div
                     key="step1"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="space-y-10"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-8"
                   >
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-3">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Full Name</Label>
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Full Name</Label>
                         <div className="relative group">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
-                          <Input className="pl-12 h-14 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all" placeholder="John Doe" {...register('customer_name')} />
+                          <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
+                          <Input className="pl-12 h-16 rounded-[24px] bg-card/50 border-border/50 focus:bg-card transition-all text-lg font-bold" placeholder="Deven Rajput" {...register('customer_name')} />
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Mobile Number</Label>
+                      <div className="space-y-4">
+                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Mobile Number</Label>
                         <div className="relative group">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
-                          <Input className="pl-12 h-14 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all" placeholder="+91 98765 43210" {...register('mobile')} />
+                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
+                          <Input className="pl-12 h-16 rounded-[24px] bg-card/50 border-border/50 focus:bg-card transition-all text-lg font-bold" placeholder="+91 85710 83382" {...register('mobile')} />
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Unit Number</Label>
-                        <div className="relative group">
-                          <Home className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
-                          <Input className="pl-12 h-14 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all" placeholder="A-101" {...register('unit_number')} />
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-4">
+                          <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Unit Number</Label>
+                          <div className="relative group">
+                            <Home className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
+                            <Input className="pl-12 h-16 rounded-[24px] bg-card/50 border-border/50 focus:bg-card transition-all text-lg font-bold" placeholder="A-101" {...register('unit_number')} />
+                          </div>
                         </div>
-                      </div>
-                      <div className="space-y-3">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Building / Area</Label>
-                        <div className="relative group">
-                          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
-                          <Input className="pl-12 h-14 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all" placeholder="Green Valley Estate" {...register('address')} />
+                        <div className="space-y-4">
+                          <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Building / Area</Label>
+                          <div className="relative group">
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
+                            <Input className="pl-12 h-16 rounded-[24px] bg-card/50 border-border/50 focus:bg-card transition-all text-lg font-bold" placeholder="Green Valley Estate" {...register('address')} />
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <Button 
                       type="button" 
-                      className="w-full h-16 text-lg font-black rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-20 disabled:grayscale transition-all shadow-xl shadow-emerald-500/20" 
+                      className="w-full h-16 text-lg font-black rounded-[24px] bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-30 transition-all shadow-xl shadow-emerald-500/20" 
                       onClick={nextStep}
                       disabled={!isStep1Complete}
                     >
@@ -225,14 +250,14 @@ const BookingPage = () => {
                 {step === 2 && (
                   <motion.div
                     key="step2"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="space-y-8"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
                   >
                     <div className="grid gap-4">
                       {isLoadingServices ? (
-                        [1, 2, 3].map((i) => <Skeleton key={i} className="h-32 w-full rounded-[32px]" />)
+                        [1, 2, 3].map((i) => <Skeleton key={i} className="h-28 w-full rounded-[32px]" />)
                       ) : (
                         services.map((service) => (
                           <div 
@@ -242,29 +267,26 @@ const BookingPage = () => {
                               setValue('service_name', service.name);
                             }}
                             className={cn(
-                              "group relative p-8 rounded-[32px] border transition-all duration-500 cursor-pointer overflow-hidden",
+                              "group relative p-6 rounded-[32px] border transition-all duration-500 cursor-pointer",
                               selectedServiceId === service.id 
-                                ? "border-emerald-500 bg-emerald-500/5 shadow-2xl shadow-emerald-500/10 scale-[1.02]" 
-                                : "border-border/50 bg-card/50 hover:bg-card hover:border-emerald-500/30"
+                                ? "border-emerald-500 bg-emerald-500/5 scale-[1.02]" 
+                                : "border-border/50 bg-card/50 hover:border-emerald-500/30"
                             )}
                           >
-                            <div className="flex justify-between items-center relative z-10">
-                              <div className="space-y-2">
-                                <h4 className="text-3xl font-black tracking-tighter uppercase">{service.name}</h4>
-                                <p className="text-sm text-muted-foreground max-w-md font-medium">{service.description}</p>
+                            <div className="flex justify-between items-center">
+                              <div className="space-y-1">
+                                <h4 className="text-xl font-black uppercase tracking-tighter">{service.name}</h4>
+                                <p className="text-xs text-muted-foreground max-w-[250px] font-medium leading-relaxed">{service.description}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-4xl font-black tracking-tighter">₹{service.price}</p>
-                                <p className="text-[10px] text-emerald-500 uppercase font-black tracking-widest mt-1">Premium Rate</p>
+                                <p className="text-2xl font-black tracking-tighter">₹{service.price}</p>
+                                <p className="text-[8px] text-emerald-500 uppercase font-black tracking-widest mt-0.5">Premium Rate</p>
                               </div>
                             </div>
                             {selectedServiceId === service.id && (
-                              <motion.div 
-                                layoutId="service-check"
-                                className="absolute top-6 right-6"
-                              >
-                                <CheckCircle2 className="h-6 w-6 text-emerald-500" />
-                              </motion.div>
+                              <div className="absolute -top-2 -right-2 bg-emerald-500 rounded-full p-1 shadow-lg">
+                                <CheckCircle2 className="h-4 w-4 text-white" />
+                              </div>
                             )}
                           </div>
                         ))
@@ -272,10 +294,10 @@ const BookingPage = () => {
                     </div>
                     
                     <div className="flex gap-4">
-                      <Button type="button" variant="outline" className="h-16 px-8 rounded-2xl border-border" onClick={prevStep}>
+                      <Button type="button" variant="outline" className="h-16 px-8 rounded-[24px] border-border" onClick={prevStep}>
                         <ArrowLeft className="h-6 w-6" />
                       </Button>
-                      <Button type="button" className="flex-1 h-16 text-lg font-black rounded-2xl bg-emerald-500 text-white" onClick={nextStep} disabled={!selectedServiceId}>
+                      <Button type="button" className="flex-1 h-16 text-lg font-black rounded-[24px] bg-emerald-500 text-white" onClick={nextStep} disabled={!selectedServiceId}>
                         Schedule Visit
                         <ChevronRight className="ml-2 h-6 w-6" />
                       </Button>
@@ -286,26 +308,26 @@ const BookingPage = () => {
                 {step === 3 && (
                   <motion.div
                     key="step3"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="space-y-10"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-8"
                   >
-                    <div className="grid md:grid-cols-2 gap-12">
+                    <div className="space-y-6">
                       <div className="space-y-4">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Preferred Date</Label>
+                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Preferred Date</Label>
                         <div className="relative group">
                           <CalendarIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
                           <input 
                             type="date" 
-                            className="w-full h-16 pl-14 pr-6 rounded-2xl border border-border/50 bg-card/50 focus:bg-card focus:border-emerald-500 outline-none transition-all font-bold"
+                            className="w-full h-16 pl-14 pr-6 rounded-[24px] border border-border/50 bg-card/50 focus:bg-card focus:border-emerald-500 outline-none transition-all font-bold text-lg"
                             {...register('booking_date')} 
                           />
                         </div>
                       </div>
 
                       <div className="space-y-4">
-                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Select Time Window</Label>
+                        <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground ml-1">Select Time Window</Label>
                         <div className="grid gap-3">
                           {timeSlots.map((slot) => (
                             <button
@@ -313,9 +335,9 @@ const BookingPage = () => {
                               type="button"
                               onClick={() => setValue('time_slot', slot)}
                               className={cn(
-                                "flex items-center justify-between p-5 rounded-2xl border text-sm font-bold transition-all duration-300",
+                                "flex items-center justify-between p-5 rounded-[24px] border text-sm font-bold transition-all duration-300",
                                 selectedTimeSlot === slot
-                                  ? "border-emerald-500 bg-emerald-500 text-white shadow-xl shadow-emerald-500/20"
+                                  ? "border-emerald-500 bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
                                   : "border-border/50 bg-card/50 hover:border-emerald-500/30"
                               )}
                             >
@@ -330,19 +352,19 @@ const BookingPage = () => {
                       </div>
                     </div>
 
-                    <div className="p-6 rounded-3xl bg-emerald-500/5 border border-emerald-500/10 flex items-start space-x-4">
-                      <Info className="h-6 w-6 text-emerald-500 shrink-0" />
-                      <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                    <div className="p-5 rounded-[24px] bg-emerald-500/5 border border-emerald-500/10 flex items-start space-x-4">
+                      <Info className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <p className="text-[10px] text-muted-foreground leading-relaxed font-medium uppercase tracking-tight">
                         Our verified professional will arrive within the selected time window. 
-                        You can reschedule up to 4 hours before the appointment via the dashboard.
+                        reschedule anytime via dashboard.
                       </p>
                     </div>
 
                     <div className="flex gap-4">
-                      <Button type="button" variant="outline" className="h-16 px-8 rounded-2xl border-border" onClick={prevStep}>
+                      <Button type="button" variant="outline" className="h-16 px-8 rounded-[24px] border-border" onClick={prevStep}>
                         <ArrowLeft className="h-6 w-6" />
                       </Button>
-                      <Button type="submit" className="flex-1 h-16 text-lg font-black rounded-2xl bg-emerald-500 text-white shadow-xl shadow-emerald-500/20" disabled={isSubmitting || !selectedTimeSlot}>
+                      <Button type="submit" className="flex-1 h-16 text-lg font-black rounded-[24px] bg-emerald-500 text-white shadow-xl shadow-emerald-500/20" disabled={isSubmitting || !selectedTimeSlot}>
                         {isSubmitting ? (
                           <div className="flex items-center justify-center">
                             <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
