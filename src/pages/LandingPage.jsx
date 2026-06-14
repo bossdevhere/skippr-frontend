@@ -120,27 +120,15 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Trust Bar */}
-      <section className="py-12 border-y border-border/50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale pointer-events-none">
-            {['Vercel', 'Linear', 'Notion', 'Stripe', 'Arc'].map((name) => (
-              <span key={name} className="text-xl font-bold tracking-tighter">{name}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Footer CTA */}
-      <section className="py-32 px-6">
-        <div className="max-w-4xl mx-auto rounded-3xl bg-primary p-12 text-center text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0 bg-emerald-500/10 pointer-events-none" />
-          <div className="relative z-10 space-y-6 text-white">
-            <h2 className="text-4xl font-bold tracking-tight">Ready to transform your home?</h2>
-            <p className="text-primary-foreground/70 text-lg">Join 500+ residents who trust Skippr for their home services.</p>
-            <div className="flex justify-center pt-4">
-              <Button variant="secondary" size="lg" className="h-12 px-8" onClick={() => navigate('/signup')}>
-                Get Started Now
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto rounded-[40px] bg-foreground p-12 text-center text-background relative overflow-hidden shadow-2xl">
+          <div className="relative z-10 space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Ready for a cleaner home?</h2>
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">Join the residents who trust Skippr for their premium home maintenance.</p>
+            <div className="flex justify-center">
+              <Button variant="secondary" size="lg" className="h-14 px-12 rounded-full font-bold shadow-xl hover:scale-105 transition-transform" onClick={() => navigate('/signup')}>
+                Get Started
               </Button>
             </div>
           </div>
@@ -148,19 +136,18 @@ const LandingPage = () => {
       </section>
 
       {/* Minimal Footer */}
-      <footer className="py-12 border-t px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+      <footer className="py-12 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground/60">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <div className="h-6 w-6 rounded-md bg-primary flex items-center justify-center text-primary-foreground text-[10px] font-bold text-white">S</div>
             <span className="font-semibold text-foreground">Skippr</span>
           </div>
           <div className="flex space-x-8">
-            <button className="hover:text-foreground transition-colors">Terms</button>
             <button className="hover:text-foreground transition-colors">Privacy</button>
             <button className="hover:text-foreground transition-colors">Help</button>
           </div>
           <div className="mt-4 md:mt-0">
-            © 2026 Skippr Technologies.
+            © 2026 Skippr.
           </div>
         </div>
       </footer>
