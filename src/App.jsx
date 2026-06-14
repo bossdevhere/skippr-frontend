@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { useThemeStore } from './context/themeStore';
@@ -11,19 +11,36 @@ import MyBookingsPage from './pages/MyBookingsPage';
 import DashboardPage from './pages/DashboardPage';
 import BookingsPage from './pages/BookingsPage';
 import SettingsPage from './pages/SettingsPage';
+import OfflinePage from './pages/OfflinePage';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const App = () => {
   const { setTheme } = useThemeStore();
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
+
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, [setTheme]);
+
+  if (!isOnline) {
+    return <OfflinePage />;
+  }
 
   return (
     <Router>
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+...
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
