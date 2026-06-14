@@ -128,39 +128,26 @@ const BookingPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           
           {/* Progress Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            <nav className="flex flex-col space-y-4">
+          <div className="lg:col-span-1">
+            <nav className="flex flex-col space-y-6">
               {steps.map((s) => (
                 <div 
                   key={s.id} 
                   className={cn(
-                    "flex items-center space-x-4 p-2 rounded-lg transition-all",
-                    step === s.id ? "bg-primary/5 text-primary" : "text-muted-foreground opacity-60"
+                    "flex items-center space-x-4 transition-all",
+                    step === s.id ? "opacity-100" : "opacity-30"
                   )}
                 >
                   <div className={cn(
-                    "h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold border-2",
-                    step === s.id ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                  )}>
-                    {s.id}
-                  </div>
+                    "h-2 w-2 rounded-full",
+                    step === s.id ? "bg-primary" : "bg-muted-foreground"
+                  )} />
                   <div className="hidden lg:block">
                     <p className="text-sm font-bold leading-none">{s.title}</p>
-                    <p className="text-[10px] uppercase mt-1 tracking-wider">{s.description}</p>
                   </div>
                 </div>
               ))}
             </nav>
-
-            <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 hidden lg:block">
-              <div className="flex items-center space-x-2 text-emerald-600 mb-2">
-                <Sparkles className="h-4 w-4" />
-                <span className="text-xs font-bold uppercase tracking-tight">Skippr Promise</span>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                All services include 100% satisfaction guarantee and verified professionals.
-              </p>
-            </div>
           </div>
 
           {/* Form Content */}
