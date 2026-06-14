@@ -40,10 +40,10 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 w-full z-50 px-6 py-6">
-      <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/5 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-[24px] shadow-2xl">
+      <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/70 backdrop-blur-xl border border-black/[0.05] px-6 py-3 rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="h-10 w-10 rounded-xl bg-emerald-500 flex items-center justify-center text-black font-black shadow-[0_0_20px_-5px_rgba(16,185,129,0.5)] group-hover:scale-110 transition-transform">S</div>
-          <span className="text-2xl font-black tracking-tighter uppercase text-white">Skippr</span>
+          <div className="h-10 w-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black shadow-[0_10px_20px_-5px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">S</div>
+          <span className="text-2xl font-black tracking-tighter uppercase text-black">Skippr</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -56,7 +56,7 @@ const Navbar = () => {
               onClick={() => navigate(link.path)}
               className={cn(
                 "text-[10px] font-black uppercase tracking-widest rounded-xl px-6 h-10 transition-all",
-                location.pathname === link.path ? "bg-white text-black" : "text-white/60 hover:text-white hover:bg-white/5"
+                location.pathname === link.path ? "bg-black text-white" : "text-black/60 hover:text-black hover:bg-black/5"
               )}
             >
               {link.icon && <link.icon className="mr-2 h-3.5 w-3.5" />}
@@ -64,7 +64,7 @@ const Navbar = () => {
             </Button>
           ))}
           {isAuthenticated && (
-            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[10px] font-black uppercase tracking-widest rounded-xl px-6 h-10 text-rose-500 hover:text-rose-400 hover:bg-rose-500/10">
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[10px] font-black uppercase tracking-widest rounded-xl px-6 h-10 text-rose-600 hover:text-rose-500 hover:bg-rose-50/5">
               <LogOut className="mr-2 h-3.5 w-3.5" />
               Logout
             </Button>

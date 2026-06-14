@@ -115,9 +115,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+  @apply bg-black/10 rounded-full hover:bg-black/20 transition-colors;
 }
 
 ::selection {
-  @apply bg-emerald-500 text-black;
+  @apply bg-emerald-500 text-white;
 }
