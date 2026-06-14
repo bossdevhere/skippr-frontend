@@ -83,6 +83,16 @@
   @apply bg-background/70 backdrop-blur-md border-border/50;
 }
 
+.text-gradient-emerald {
+  @apply bg-gradient-to-r from-emerald-400 via-emerald-500 to-blue-500 bg-clip-text text-transparent;
+}
+
+.bg-mesh {
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(161, 71%, 48%, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(190, 71%, 48%, 0.15) 0px, transparent 50%);
+}
+
 .subtle-glow {
   box-shadow: 0 0 20px -10px rgba(16, 185, 129, 0.2);
 }
@@ -91,15 +101,23 @@
   @apply transition-all duration-300 hover:border-primary/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)];
 }
 
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1 active:scale-95;
+}
+
 /* Custom Scrollbar for Premium Feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted border-2 border-background rounded-full hover:bg-muted-foreground/50 transition-colors;
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+::selection {
+  @apply bg-emerald-500 text-black;
 }
