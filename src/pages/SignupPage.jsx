@@ -42,12 +42,11 @@ const SignupPage = () => {
   };
 
   const leftContent = (
-    <div className="space-y-8 p-12">
-      <div className="h-12 w-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-black font-black text-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)]">S</div>
+    <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+        <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.85]">
           Elevated <br />
-          Living.
+          <span className="text-emerald-500">Living.</span>
         </h1>
         <p className="text-xl text-white/40 font-medium max-w-sm">
           Join the elite network of residents enjoying seamless home maintenance.
@@ -59,7 +58,7 @@ const SignupPage = () => {
           'Priority Expert Dispatch',
           'Exclusive Resident Perks',
         ].map((item, i) => (
-          <div key={i} className="flex items-center space-x-3 text-sm font-bold uppercase tracking-widest text-emerald-400">
+          <div key={i} className="flex items-center space-x-3 text-sm font-black uppercase tracking-widest text-emerald-400">
             <CheckCircle2 className="h-4 w-4" />
             <span>{item}</span>
           </div>
@@ -68,13 +67,13 @@ const SignupPage = () => {
       <div className="flex items-center space-x-6 pt-8">
         <div className="flex -space-x-4">
           {[4, 5, 6].map((i) => (
-            <div key={i} className="h-12 w-12 rounded-full border-4 border-[#10b981] bg-black overflow-hidden">
+            <div key={i} className="h-12 w-12 rounded-full border-4 border-black bg-emerald-500 overflow-hidden shadow-2xl">
               <img src={`https://i.pravatar.cc/150?u=${i+20}`} alt="user" className="h-full w-full object-cover opacity-80" />
             </div>
           ))}
         </div>
         <div className="space-y-0.5">
-          <p className="text-sm font-bold tracking-tight">Verified Community</p>
+          <p className="text-sm font-bold tracking-tight text-white">Verified Community</p>
           <div className="flex text-emerald-500">
             {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3 w-3 fill-current" />)}
           </div>
@@ -85,91 +84,89 @@ const SignupPage = () => {
 
   return (
     <SplitScreenLayout leftContent={leftContent}>
-      <div className="space-y-8">
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Create Account</h2>
-          <p className="text-muted-foreground">
-            Get started with Skippr today.
+      <div className="space-y-10">
+        <div className="space-y-2 text-center lg:text-left">
+          <h2 className="text-4xl font-black tracking-tighter uppercase">Create Account</h2>
+          <p className="text-muted-foreground font-medium">
+            Join the Skippr concierge network.
           </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Full Name</Label>
+            <div className="relative group">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
               <Input
-                id="name"
                 placeholder="John Doe"
-                className="pl-10"
+                className="pl-12 h-14 rounded-2xl bg-card border-border/50 focus:bg-background transition-all"
                 {...register('name')}
               />
             </div>
-            {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+            {errors.name && <p className="text-xs text-rose-500 font-medium">{errors.name.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email Address</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Email Address</Label>
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
               <Input
-                id="email"
                 placeholder="john@example.com"
                 type="email"
-                className="pl-10"
+                className="pl-12 h-14 rounded-2xl bg-card border-border/50 focus:bg-background transition-all"
                 {...register('email')}
               />
             </div>
-            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+            {errors.email && <p className="text-xs text-rose-500 font-medium">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="mobile">Mobile Number</Label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Mobile Number</Label>
+            <div className="relative group">
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
               <Input
-                id="mobile"
                 placeholder="+91 98765 43210"
-                className="pl-10"
+                className="pl-12 h-14 rounded-2xl bg-card border-border/50 focus:bg-background transition-all"
                 {...register('mobile')}
               />
             </div>
-            {errors.mobile && <p className="text-xs text-destructive">{errors.mobile.message}</p>}
+            {errors.mobile && <p className="text-xs text-rose-500 font-medium">{errors.mobile.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Password</Label>
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-emerald-500 transition-colors" />
               <Input
-                id="password"
                 type={showPassword ? 'text' : 'password'}
-                className="pl-10 pr-10"
+                className="pl-12 pr-12 h-14 rounded-2xl bg-card border-border/50 focus:bg-background transition-all"
                 {...register('password')}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
-            {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
+            {errors.password && <p className="text-xs text-rose-500 font-medium">{errors.password.message}</p>}
           </div>
 
-          <Button type="submit" className="w-full h-11" disabled={isLoading}>
-            {isLoading ? "Creating Account..." : (
+          <Button type="submit" className="w-full h-16 text-lg font-black rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xl shadow-emerald-500/20 mt-6" disabled={isLoading}>
+            {isLoading ? (
+               <div className="h-6 w-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
               <span className="flex items-center space-x-2">
-                <span>Sign Up</span>
-                <ArrowRight className="h-4 w-4" />
+                <span>Start Experience</span>
+                <ArrowRight className="h-5 w-5" />
               </span>
             )}
           </Button>
         </form>
 
-        <div className="text-center text-sm text-muted-foreground">
-          Already have an account? <Link to="/login" className="text-primary hover:underline">Sign In</Link>
+        <div className="text-center text-sm font-medium text-muted-foreground">
+          Already a member? <Link to="/login" className="text-emerald-500 font-black hover:underline uppercase tracking-tighter">Sign In</Link>
         </div>
       </div>
     </SplitScreenLayout>
