@@ -39,15 +39,15 @@ const Navbar = () => {
       ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 border-b glass px-6 py-4">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2 group">
-          <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">S</div>
-          <span className="text-xl font-bold tracking-tighter">Skippr</span>
+    <nav className="fixed top-0 w-full z-50 px-6 py-6">
+      <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/5 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-[24px] shadow-2xl">
+        <Link to="/" className="flex items-center space-x-3 group">
+          <div className="h-10 w-10 rounded-xl bg-emerald-500 flex items-center justify-center text-black font-black shadow-[0_0_20px_-5px_rgba(16,185,129,0.5)] group-hover:scale-110 transition-transform">S</div>
+          <span className="text-2xl font-black tracking-tighter uppercase text-white">Skippr</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-1 bg-muted/50 p-1 rounded-full border border-border/50">
+        <div className="hidden md:flex items-center space-x-2">
           {navLinks.map((link) => (
             <Button 
               key={link.path}
@@ -55,8 +55,8 @@ const Navbar = () => {
               size="sm"
               onClick={() => navigate(link.path)}
               className={cn(
-                "text-xs font-semibold rounded-full px-4",
-                location.pathname === link.path && "shadow-sm"
+                "text-[10px] font-black uppercase tracking-widest rounded-xl px-6 h-10 transition-all",
+                location.pathname === link.path ? "bg-white text-black" : "text-white/60 hover:text-white hover:bg-white/5"
               )}
             >
               {link.icon && <link.icon className="mr-2 h-3.5 w-3.5" />}
@@ -64,7 +64,7 @@ const Navbar = () => {
             </Button>
           ))}
           {isAuthenticated && (
-            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-xs font-semibold rounded-full px-4 text-destructive hover:text-destructive hover:bg-destructive/10">
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[10px] font-black uppercase tracking-widest rounded-xl px-6 h-10 text-rose-500 hover:text-rose-400 hover:bg-rose-500/10">
               <LogOut className="mr-2 h-3.5 w-3.5" />
               Logout
             </Button>
