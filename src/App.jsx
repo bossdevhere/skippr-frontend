@@ -40,7 +40,7 @@ const App = () => {
 
   return (
     <Router>
-...
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
