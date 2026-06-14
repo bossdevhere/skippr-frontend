@@ -6,35 +6,20 @@ import {
   Settings, 
   LogOut, 
   Menu, 
-  X, 
-  Search,
-  Bell,
-  Moon,
+  Moon, 
   Sun
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useThemeStore } from '@/context/themeStore';
-import { useNotificationStore } from '@/context/notificationStore';
-import { CommandPalette } from './CommandPalette';
 import { Button } from '../ui/Button';
 import { cn } from '@/utils/cn';
 import { format } from 'date-fns';
 
 const AdminLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const { theme, toggleTheme } = useThemeStore();
-  const { notifications, unreadCount, fetchNotifications, markAsRead, clearAll } = useNotificationStore();
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Polling for notifications every 30 seconds
-  useEffect(() => {
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 30000);
-    return () => clearInterval(interval);
-  }, [fetchNotifications]);
 
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
