@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ArrowRight, Star } from 'lucide-react';
 import { useAuthStore } from '@/context/authStore';
 import SplitScreenLayout from '@/components/layout/SplitScreenLayout';
 import { Button } from '@/components/ui/Button';
@@ -48,23 +48,31 @@ const LoginPage = () => {
   };
 
   const leftContent = (
-    <div className="space-y-6">
-      <h1 className="text-4xl font-bold tracking-tight">
-        Manage your services <br />
-        in one place.
-      </h1>
-      <p className="text-lg text-white/80">
-        Log in to access your personalized dashboard, track active bookings, and manage your account settings.
-      </p>
-      <div className="flex items-center space-x-4">
-        <div className="flex -space-x-2">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-8 w-8 rounded-full border-2 border-primary bg-muted flex items-center justify-center text-[10px] text-primary font-bold">
-              U{i}
+    <div className="space-y-8 p-12">
+      <div className="h-12 w-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-black font-black text-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)]">S</div>
+      <div className="space-y-4">
+        <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+          Premium <br />
+          Concierge.
+        </h1>
+        <p className="text-xl text-white/40 font-medium max-w-sm">
+          Access your personal portal to manage high-end home services.
+        </p>
+      </div>
+      <div className="flex items-center space-x-6 pt-12">
+        <div className="flex -space-x-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-12 w-12 rounded-full border-4 border-[#10b981] bg-black overflow-hidden">
+              <img src={`https://i.pravatar.cc/150?u=${i+10}`} alt="user" className="h-full w-full object-cover opacity-80" />
             </div>
           ))}
         </div>
-        <span className="text-sm text-white/60">Trusted by 500+ residents</span>
+        <div className="space-y-0.5">
+          <p className="text-sm font-bold tracking-tight">Join 500+ Residents</p>
+          <div className="flex text-emerald-500">
+            {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3 w-3 fill-current" />)}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
-import { User, Mail, Lock, Phone, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { User, Mail, Lock, Phone, ArrowRight, Eye, EyeOff, Star, CheckCircle2 } from 'lucide-react';
 import { useAuthStore } from '@/context/authStore';
 import SplitScreenLayout from '@/components/layout/SplitScreenLayout';
 import { Button } from '@/components/ui/Button';
@@ -42,28 +42,43 @@ const SignupPage = () => {
   };
 
   const leftContent = (
-    <div className="space-y-6">
-      <h1 className="text-4xl font-bold tracking-tight">
-        Join the community <br />
-        of happy residents.
-      </h1>
-      <p className="text-lg text-white/80">
-        Create an account to book premium services, track your requests, and enjoy a seamless home maintenance experience.
-      </p>
-      <div className="space-y-4 pt-4">
+    <div className="space-y-8 p-12">
+      <div className="h-12 w-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-black font-black text-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)]">S</div>
+      <div className="space-y-4">
+        <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+          Elevated <br />
+          Living.
+        </h1>
+        <p className="text-xl text-white/40 font-medium max-w-sm">
+          Join the elite network of residents enjoying seamless home maintenance.
+        </p>
+      </div>
+      <div className="space-y-4 pt-6">
         {[
-          'Personalized service history',
-          'Faster booking flow',
-          'Exclusive resident offers',
-          'Direct chat support'
+          'Bespoke Service History',
+          'Priority Expert Dispatch',
+          'Exclusive Resident Perks',
         ].map((item, i) => (
-          <div key={i} className="flex items-center space-x-3 text-sm text-white/70">
-            <div className="h-5 w-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </div>
+          <div key={i} className="flex items-center space-x-3 text-sm font-bold uppercase tracking-widest text-emerald-400">
+            <CheckCircle2 className="h-4 w-4" />
             <span>{item}</span>
           </div>
         ))}
+      </div>
+      <div className="flex items-center space-x-6 pt-8">
+        <div className="flex -space-x-4">
+          {[4, 5, 6].map((i) => (
+            <div key={i} className="h-12 w-12 rounded-full border-4 border-[#10b981] bg-black overflow-hidden">
+              <img src={`https://i.pravatar.cc/150?u=${i+20}`} alt="user" className="h-full w-full object-cover opacity-80" />
+            </div>
+          ))}
+        </div>
+        <div className="space-y-0.5">
+          <p className="text-sm font-bold tracking-tight">Verified Community</p>
+          <div className="flex text-emerald-500">
+            {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3 w-3 fill-current" />)}
+          </div>
+        </div>
       </div>
     </div>
   );
